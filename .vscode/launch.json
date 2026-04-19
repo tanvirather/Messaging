@@ -1,0 +1,15 @@
+{
+  "configurations": [
+    {
+      "name": "Messaging.Api",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/Messaging.Api/bin/Debug/net10.0/Zuhid.Messaging.Api.dll",
+      "cwd": "${workspaceFolder}/Messaging.Api",
+      "stopAtEntry": false,
+      "launchBrowser": {
+        "enabled": true,
+      }
+    }
+  ]
+}
