@@ -1,0 +1,6 @@
+﻿Id,Name,Description,Price,StockQuantity,CategoryId
+8d9e0f1a-2b3c-4d5e-6f7a-8b9c0d1e2f3a,Blender,High-speed blender,89.99,30,3f9b2d8e-1c7a-4b5d-9e6f-8a2b3c4d5e6f
+9a0b1c2d-3e4f-5a6b-7c8d-9e0f1a2b3c4d,Tennis Racket,Professional tennis racket,120.00,20,4a5b6c7d-8e9f-0a1b-2c3d-4e5f6a7b8c9d
+0b1c2d3e-4f5a-6b7c-8d9e-0f1a2b3c4d5e,Lipstick,Matte finish lipstick,15.50,150,5d6e7f8a-9b0c-1d2e-3f4a-5b6c7d8e9f0a
+1c2d3e4f-5a6b-7c8d-9e0f-1a2b3c4d5e6f,Lego Set,Space exploration lego set,59.99,40,6b7c8d9e-0f1a-2b3c-4d5e-6f7a8b9c0d1e
+2d3e4f5a-6b7c-8d9e-0f1a-2b3c4d5e6f7a,Car Oil,Synthetic engine oil,35.00,60,7e8f9a0b-1c2d-3e4f-5a6b-7c8d9e0f1a2b

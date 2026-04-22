@@ -1,18 +1,25 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Zuhid.Messaging.Mappers;
+using Zuhid.Messaging.Repositories;
 
 namespace Zuhid.Messaging.Controllers;
 
 [ApiController]
 [Route("Email/[controller]")]
-
-public class OrderController(IEmailService emailService, IOrderMapper orderMapper)
+public class OrderController(IEmailService emailService, IOrderMapper orderMapper, OrderRepository orderRepository)
 {
     [HttpPost]
     public virtual async Task<bool> Send([FromBody] Guid orderId)
     {
-        var (subject, body) = await orderMapper.Map(orderId);
-        return await emailService.SendEmailAsync("customer@example.com", subject, body);
+        var order = await orderRepository.GetOrderWithDetailsAsync(orderId);
+        if (order == null)
+        {
+            return false;
+        }
+
+        var (subject, body) = await orderMapper.Map(order);
+        var recipientEmail = order.Customer?.Email ?? "customer@example.com";
+
+        return await emailService.SendEmailAsync(recipientEmail, subject, body);
     }
 }
-

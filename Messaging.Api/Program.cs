@@ -1,5 +1,6 @@
 // using System.Reflection;
 using Zuhid.Base;
+using Zuhid.Messaging.Repositories;
 using Zuhid.Messaging.Mappers;
 
 namespace Zuhid.Messaging.Api;
@@ -17,6 +18,7 @@ public class Program
         //   .ToList()
         //   .ForEach(item => builder.Services.AddScoped(item));
         builder.Services.AddScoped<IOrderMapper, OrderMapper>();
+        builder.Services.AddScoped<OrderRepository>();
 
         var appSetting = new AppSetting(builder.Configuration);
         builder.Services.AddSingleton(appSetting);

@@ -1,0 +1,6 @@
+﻿Id,CustomerId,Street,City,State,ZipCode,Country,IsDefault
+8f9a0b1c-2d3e-4f5a-6b7c-8d9e0f1a2b3c,3a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d,456 Oak Ave,Metropolis,NY,10001,USA,True
+9a0b1c2d-3e4f-5a6b-7c8d-9e0f1a2b3c4d,4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e,789 Pine Rd,Gotham,NJ,07001,USA,True
+0b1c2d3e-4f5a-6b7c-8d9e-0f1a2b3c4d5e,5c6d7e8f-9a0b-1c2d-3e4f-5a6b7c8d9e0f,101 Maple Ln,Smallville,KS,66002,USA,True
+1c2d3e4f-5a6b-7c8d-9e0f-1a2b3c4d5e6f,6d7e8f9a-0b1c-2d3e-4f5a-6b7c8d9e0f1a,202 Elm St,Riverdale,CA,90210,USA,True
+2d3e4f5a-6b7c-8d9e-0f1a-2b3c4d5e6f7a,7e8f9a0b-1c2d-3e4f-5a6b-7c8d9e0f1a2b,303 Cedar Blvd,Star City,WA,98101,USA,True

@@ -24,7 +24,7 @@
     "**/obj": true,
     "**/Properties": true,
     "License": true,
-    "Readme.md": true,
+    "Readme.md": false,
   },
   "files.watcherExclude": {
     ".config": true,

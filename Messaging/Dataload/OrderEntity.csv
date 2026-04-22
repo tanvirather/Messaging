@@ -1,0 +1,6 @@
+﻿Id,Number,OrderDate,TotalAmount,CustomerId
+a0b1c2d3-e4f5-a6b7-c8d9-e0f1a2b3c4d5,ORD-002,2024-02-15,89.99,3a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d
+b1c2d3e4-f5a6-b7c8-d9e0-f1a2b3c4d5e6,ORD-003,2024-03-20,120.00,4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e
+c2d3e4f5-a6b7-c8d9-e0f1-a2b3c4d5e6f7,ORD-004,2024-04-10,15.50,5c6d7e8f-9a0b-1c2d-3e4f-5a6b7c8d9e0f
+d3e4f5a6-b7c8-d9e0-f1a2-b3c4d5e6f7a8,ORD-005,2024-05-05,59.99,6d7e8f9a-0b1c-2d3e-4f5a-6b7c8d9e0f1a
+e4f5a6b7-c8d9-e0f1-a2b3-c4d5e6f7a8b9,ORD-006,2024-06-12,35.00,7e8f9a0b-1c2d-3e4f-5a6b-7c8d9e0f1a2b
