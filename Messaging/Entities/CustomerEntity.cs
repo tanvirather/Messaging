@@ -1,4 +1,4 @@
-﻿namespace Zuhid.Messaging.Entities;
+namespace Zuhid.Messaging.Entities;
 
 public class CustomerEntity
 {
@@ -8,6 +8,6 @@ public class CustomerEntity
     public required string Email { get; set; }
     public string? PhoneNumber { get; set; }
 
-    public ICollection<OrderEntity> Orders { get; set; } = new List<OrderEntity>();
-    public ICollection<AddressEntity> Addresses { get; set; } = new List<AddressEntity>();
+    public ICollection<OrderEntity> Orders { get; set; } = [];
+    public ICollection<AddressEntity> Addresses { get; set; } = [];
 }

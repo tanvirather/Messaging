@@ -10,6 +10,6 @@ public class OrderEntity
     public Guid CustomerId { get; set; }
     public CustomerEntity? Customer { get; set; }
 
-    public ICollection<OrderDetailEntity> OrderDetails { get; set; } = new List<OrderDetailEntity>();
+    public ICollection<OrderDetailEntity> OrderDetails { get; set; } = [];
 }
 

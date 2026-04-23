@@ -1,25 +1,26 @@
-using System.Net.Mail;
+﻿namespace Zuhid.Messaging.Composers;
 
-namespace Zuhid.Messaging.Composers;
-
-public abstract class BaseEmailComposer<TModel> where TModel : class
+public class BaseEmailComposer
 {
-    public virtual MailMessage GetMailMessage(TModel model, string from, string to, string? cc = null, string? bcc = null)
+    private static string TemplateDir => Path.Combine(AppContext.BaseDirectory, "Templates");
+
+    protected static async Task<string> ReadTemplate(string filePath)
     {
-        var mailMessage = new MailMessage
-        {
-            Subject = GetSubject(model),
-            Body = GetBody(model),
-            From = new MailAddress(from),
-        };
-        mailMessage.To.Add(to);
-        mailMessage.CC.Add(to);
-        mailMessage.Bcc.Add(to);
-        return mailMessage;
+        return await File.ReadAllTextAsync(Path.Combine(TemplateDir, filePath));
     }
 
-    public abstract string GetSubject(TModel model);
-
-    public abstract string GetBody(TModel model);
+    protected static async Task<string> CreateHtmlAsync(string body, string style = "")
+    {
+        return $"""
+<html>
+<head>
+<style>
+    {await File.ReadAllTextAsync(Path.Combine(TemplateDir, "Base.css"))}
+    {style}
+</style>
+</head>
+<body>{body}</body>
+</html>
+""";
+    }
 }
-

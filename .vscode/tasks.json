@@ -1,32 +1,4 @@
 {
   "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "Auth",
-      "type": "shell",
-      "command": "dotnet build",
-      "options": {
-        "cwd": "Auth"
-      },
-      "group": "build"
-    },
-    {
-      "label": "AuthTest",
-      "type": "shell",
-      "command": "dotnet test",
-      "options": {
-        "cwd": "Auth.Tests"
-      },
-      "group": "build"
-    },
-    {
-      "label": "Identity",
-      "type": "shell",
-      "command": "dotnet build",
-      "options": {
-        "cwd": "Identity"
-      },
-      "group": "build"
-    },
-  ]
+  "tasks": []
 }

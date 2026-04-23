@@ -1,4 +1,4 @@
-﻿namespace Zuhid.Messaging.Entities;
+namespace Zuhid.Messaging.Entities;
 
 public class CategoryEntity
 {
@@ -6,5 +6,5 @@ public class CategoryEntity
     public required string Name { get; set; }
     public string? Description { get; set; }
 
-    public ICollection<ProductEntity> Products { get; set; } = new List<ProductEntity>();
+    public ICollection<ProductEntity> Products { get; set; } = [];
 }

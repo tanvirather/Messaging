@@ -1,4 +1,4 @@
-﻿namespace Zuhid.Messaging.Entities;
+namespace Zuhid.Messaging.Entities;
 
 public class ProductEntity
 {

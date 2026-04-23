@@ -1,4 +1,4 @@
-﻿namespace Zuhid.Messaging.Models;
+namespace Zuhid.Messaging.Models;
 
 public class OrderDetailModel
 {

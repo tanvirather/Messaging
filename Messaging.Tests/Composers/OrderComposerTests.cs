@@ -1,12 +1,11 @@
-﻿using Zuhid.Messaging.Mappers;
+﻿using Zuhid.Messaging.Composers;
 using Zuhid.Messaging.Models;
-using Xunit;
 
-namespace Zuhid.Messaging.Tests;
+namespace Zuhid.Messaging.Tests.Composers;
 
-public class OrderMapperTests
+public class OrderComposerTests
 {
-    private readonly OrderMapper _mapper = new();
+    private readonly OrderComposer _composer = new();
 
     [Fact]
     public async Task Map_Returns_Correct_Subject_And_Body()
@@ -17,8 +16,8 @@ public class OrderMapperTests
             Id = Guid.NewGuid(),
             Number = "ORD-123",
             TotalAmount = 150.50m,
-            OrderDetails = new List<OrderDetailModel>
-            {
+            OrderDetails =
+            [
                 new OrderDetailModel
                 {
                     ProductName = "Product A",
@@ -31,11 +30,11 @@ public class OrderMapperTests
                     Quantity = 1,
                     UnitPrice = 50.00m
                 }
-            }
+            ]
         };
 
         // Act
-        var (subject, body) = await _mapper.Map(order);
+        var (subject, body) = await _composer.Map(order);
 
         // Assert
         Assert.Equal($"Order Confirmation - {order.Number}", subject);
@@ -56,11 +55,11 @@ public class OrderMapperTests
             Id = Guid.NewGuid(),
             Number = "ORD-EMPTY",
             TotalAmount = 0,
-            OrderDetails = new List<OrderDetailModel>()
+            OrderDetails = []
         };
 
         // Act
-        var (subject, body) = await _mapper.Map(order);
+        var (subject, body) = await _composer.Map(order);
 
         // Assert
         Assert.Equal($"Order Confirmation - {order.Number}", subject);

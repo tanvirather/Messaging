@@ -1,7 +1,7 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Reflection;
 
-namespace Zuhid.Messaging.Tests;
+namespace Zuhid.Base;
 
 public class CsvSerializer
 {
@@ -31,7 +31,7 @@ public class CsvSerializer
             }
 
             var values = line.Split(',').Select(v => v.Trim()).ToArray();
-            var obj = (T)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(T));
+            var obj = (T)System.Runtime.CompilerServices.RuntimeHelpers.GetUninitializedObject(typeof(T));
 
             for (var j = 0; j < headers.Length && j < values.Length; j++)
             {
@@ -60,21 +60,19 @@ public class CsvSerializer
 
         targetType = Nullable.GetUnderlyingType(targetType) ?? targetType;
 
-        if (targetType.IsEnum)
-        {
-            return Enum.Parse(targetType, rawValue);
-        }
-
-        return targetType.FullName switch
-        {
-            "System.String" => rawValue,
-            "System.Guid" => Guid.Parse(rawValue),
-            "System.Int32" => int.Parse(rawValue, CultureInfo.InvariantCulture),
-            "System.Int64" => long.Parse(rawValue, CultureInfo.InvariantCulture),
-            "System.Decimal" => decimal.Parse(rawValue, CultureInfo.InvariantCulture),
-            "System.Boolean" => bool.Parse(rawValue),
-            "System.DateTime" => DateTime.Parse(rawValue, CultureInfo.InvariantCulture),
-            _ => Convert.ChangeType(rawValue, targetType, CultureInfo.InvariantCulture)
-        };
+        return targetType.IsEnum
+            ? Enum.Parse(targetType, rawValue)
+            : targetType.FullName switch
+            {
+                "System.String" => rawValue,
+                "System.Guid" => Guid.Parse(rawValue),
+                "System.Int32" => int.Parse(rawValue, CultureInfo.InvariantCulture),
+                "System.Int64" => long.Parse(rawValue, CultureInfo.InvariantCulture),
+                "System.Decimal" => decimal.Parse(rawValue, CultureInfo.InvariantCulture),
+                "System.Boolean" => bool.Parse(rawValue),
+                "System.DateTime" => DateTime.SpecifyKind(DateTime.Parse(rawValue, CultureInfo.InvariantCulture), DateTimeKind.Utc),
+                "System.DateTimeOffset" => DateTimeOffset.Parse(rawValue, CultureInfo.InvariantCulture).ToUniversalTime(),
+                _ => Convert.ChangeType(rawValue, targetType, CultureInfo.InvariantCulture)
+            };
     }
 }

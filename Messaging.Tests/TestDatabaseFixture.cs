@@ -1,8 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Zuhid.Messaging;
-using Zuhid.Messaging.Entities;
-using System.Globalization;
-using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using Zuhid.Base;
 
 namespace Zuhid.Messaging.Tests;
 
@@ -22,11 +19,11 @@ public class TestDatabaseFixture : IDisposable
 
     private void SeedFromCsv()
     {
-        Context.Category.LoadFromCsv("CategoryEntity.csv");
-        Context.Customer.LoadFromCsv("CustomerEntity.csv");
-        Context.Product.LoadFromCsv("ProductEntity.csv");
-        Context.Order.LoadFromCsv("OrderEntity.csv");
-        Context.OrderDetail.LoadFromCsv("OrderDetailEntity.csv");
+        Context.Category.LoadCsvData("Dataload/CategoryEntity.csv");
+        Context.Customer.LoadCsvData("Dataload/CustomerEntity.csv");
+        Context.Product.LoadCsvData("Dataload/ProductEntity.csv");
+        Context.Order.LoadCsvData("Dataload/OrderEntity.csv");
+        Context.OrderDetail.LoadCsvData("Dataload/OrderDetailEntity.csv");
 
         Context.SaveChanges();
     }
@@ -35,4 +32,9 @@ public class TestDatabaseFixture : IDisposable
     {
         Context.Dispose();
     }
+}
+
+[CollectionDefinition("Database collection")]
+public class DatabaseCollection : ICollectionFixture<TestDatabaseFixture>
+{
 }
