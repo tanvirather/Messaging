@@ -15,14 +15,14 @@ scaffold_database(){
   # get the database in lower case
   dbname=${1,,}
 
-  dotnet ef dbcontext scaffold --project $project --startup-project $startup_project --output-dir Scaffold/Models --context-dir Scaffold --force \
+  dotnet ef dbcontext scaffold --project $project --startup-project $startup_project --output-dir Scaffold/Entities --context-dir Scaffold --force \
       --data-annotations --no-onconfiguring \
       "Host=localhost;Database=$dbname;Username=$dbuser_user;Password=$dbuser_password" Npgsql.EntityFrameworkCore.PostgreSQL
 }
 
 solution_initilize(){
   dotnet tool restore
-  dotnet user-secrets set "postgres_credential" "User Id=$dbuser_user;Password=$dbuser_password" --project Messaging.Api # set secrets
+  dotnet user-secrets set "postgres_credential" "User Id=$dbuser_user;Password=$dbuser_password" --project Notification.Api # set secrets
 }
 
 update_database(){
@@ -47,7 +47,8 @@ run_test() {
 
 ################################################## execute ##################################################
 clear
-# scaffold_database "Messaging" "Messaging.Api"
+
+# scaffold_database "Notification" "Notification.Api"
 # solution_initilize
-update_database "Messaging" "Messaging.Api"
-# run_test "Messaging.Tests"
+update_database "Notification" "Notification.Api"
+# run_test "Notification.Tests"
