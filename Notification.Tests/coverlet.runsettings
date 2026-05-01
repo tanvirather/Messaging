@@ -4,8 +4,8 @@
     <DataCollectors>
       <DataCollector friendlyName="XPlat code coverage">
         <Configuration>
-          <Include>[Zuhid.Notification]*,[Zuhid.Notification.Api]*</Include>
-					<Exclude>[Zuhid.Notification]*Migrations.*,[Zuhid.Notification.Api]*Program,</Exclude>
+          <Include>[Zuhid.Notification]*</Include>
+					<Exclude>[Zuhid.Notification]*NotificationContext,[Zuhid.Notification]*Migrations.*,[Zuhid.Notification]*Entities.*,[Zuhid.Notification]*Program</Exclude>
         </Configuration>
       </DataCollector>
     </DataCollectors>

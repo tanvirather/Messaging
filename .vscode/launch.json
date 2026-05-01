@@ -1,11 +1,11 @@
 {
   "configurations": [
     {
-      "name": "Notification.Api",
+      "name": "Notification",
       "type": "coreclr",
       "request": "launch",
-      "program": "${workspaceFolder}/Notification.Api/bin/Debug/net10.0/Zuhid.Notification.Api.dll",
-      "cwd": "${workspaceFolder}/Notification.Api",
+      "program": "${workspaceFolder}/Notification/bin/Debug/net10.0/Zuhid.Notification.dll",
+      "cwd": "${workspaceFolder}/Notification",
       "stopAtEntry": false,
       "launchBrowser": {
         "enabled": true,

@@ -5,7 +5,6 @@ A robust notification system built with .NET 10, featuring email delivery, backg
 ## Project Structure
 
 - **Notification**: The core library containing business logic, entities, and services for handling notifications.
-- **Notification.Api**: ASP.NET Core Web API that provides endpoints for triggering notifications and manages background processing.
 - **Notification.Tests**: Comprehensive unit tests for the notification logic.
 - **Base**: Shared infrastructure and base classes used across the project.
 
@@ -32,5 +31,5 @@ For details on how to use the available API endpoints, see:
 
 1. **Install mailpit**: `docker run -d --restart unless-stopped --name=mailpit -p 8025:8025 -p 1025:1025 axllent/mailpit`
 2. **Database Setup**: Configure the connection string in `appsettings.json`.
-3. **Run the API**: Start the `Notification.Api` project.
+3. **Run the API**: Start the `Notification` project.
 4. **Tests**: Run the tests in `Notification.Tests` to ensure everything is working correctly.

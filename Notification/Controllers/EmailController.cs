@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Zuhid.Notification.Messages;
+using Zuhid.Notification.Welcome;
+using Zuhid.Notification.Shared;
 
 namespace Zuhid.Notification.Controllers;
 
@@ -7,15 +8,7 @@ namespace Zuhid.Notification.Controllers;
 [Route("[controller]")]
 public class EmailController(NotificationQueue emailQueue) : ControllerBase
 {
-    [HttpPost("Order")]
-    public virtual async Task<IActionResult> Order([FromBody] OrderMessage message) => await QueueMessage(message);
-
     [HttpPost("Welcome")]
-    public virtual async Task<IActionResult> Welcome([FromBody] WelcomeMessage message) => await QueueMessage(message);
+    public async Task Welcome([FromBody] WelcomeMessage message) => await emailQueue.QueueMessage(message);
 
-    private async Task<IActionResult> QueueMessage(IMessage message)
-    {
-        await emailQueue.QueueMessage(message);
-        return Accepted();
-    }
 }

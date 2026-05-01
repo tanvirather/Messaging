@@ -14,11 +14,11 @@
   },
   "files.exclude": {
     ".config": true,
-    ".editorconfig": true,
-    ".gitignore": true,
+    ".editorconfig": false,
+    ".gitignore": false,
     ".idea": true,
     "*.DotSettings.user": true,
-    "*.slnx": true,
+    "*.slnx": false,
     "**/.git": true,
     "**/*.csproj": false,
     "**/bin": true,
@@ -67,6 +67,7 @@
   "editor.renderFinalNewline": "on",
   "files.insertFinalNewline": true,
   "omnisharp.enableEditorConfigSupport": true,
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
   "[csharp]": {
     "editor.indentSize": 4,
     "editor.tabSize": 4,

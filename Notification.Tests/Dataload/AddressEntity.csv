@@ -1,7 +1,6 @@
-Id,CustomerId,Street,City,State,ZipCode,Country,IsDefault
-b2135027-576d-4494-9e8e-56dd26a9d95d,493c2b10-586f-4aff-83a9-414d674cce3e,456 Oak Ave,Metropolis,NY,10001,USA,True
-25c7bdc7-6f7d-42fa-a66a-74074ab278a5,13cdcaf3-517d-40b1-96ef-af6573a52799,789 Pine Rd,Gotham,NJ,07001,USA,True
-afec0256-44a5-4fc9-8abc-b9fe85f83de4,d9fa1a27-fc9b-4c15-a9c3-a4fbe931a8eb,101 Maple Ln,,KS,66002,USA,True
-e8517574-5c74-4ed4-8ffb-9e48a928e4a9,3c9c5296-c48a-4b59-a55e-4fa8fe283bbf,202 Elm St,Riverdale,CA,90210,USA,True
-47dff40a-5f83-4213-af92-906ee850a083,cbbd865e-12b0-4d94-be79-b214ffb6c848,303 Cedar Blvd,Star City,WA,98101,USA,True
-
+﻿Id,CustomerId,Street,City,State,ZipCode,Country,IsDefault
+8f9a0b1c-2d3e-4f5a-6b7c-8d9e0f1a2b3c,3a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d,456 Oak Ave,Metropolis,NY,10001,USA,True
+9a0b1c2d-3e4f-5a6b-7c8d-9e0f1a2b3c4d,4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e,789 Pine Rd,Gotham,NJ,07001,USA,True
+0b1c2d3e-4f5a-6b7c-8d9e-0f1a2b3c4d5e,5c6d7e8f-9a0b-1c2d-3e4f-5a6b7c8d9e0f,101 Maple Ln,Smallville,KS,66002,USA,True
+1c2d3e4f-5a6b-7c8d-9e0f-1a2b3c4d5e6f,6d7e8f9a-0b1c-2d3e-4f5a-6b7c8d9e0f1a,202 Elm St,Riverdale,CA,90210,USA,True
+2d3e4f5a-6b7c-8d9e-0f1a-2b3c4d5e6f7a,7e8f9a0b-1c2d-3e4f-5a6b-7c8d9e0f1a2b,303 Cedar Blvd,Star City,WA,98101,USA,True
