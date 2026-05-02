@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Zuhid.Notification.Shared;
 
 namespace Zuhid.Notification.Welcome;

@@ -14,18 +14,21 @@ A robust notification system built with .NET 10, featuring email delivery, backg
 - **Background Processing**: Efficient handling of notification queues using background services.
 - **Scalable Architecture**: Built on .NET 10 with a focus on modularity and testability.
 
-## Instructions
+## Documentation
 
-For instructions on development practices and standards used in this project, please refer to:
+For detailed information about the system architecture, coding standards, and testing practices, please refer to the following documents:
 
-- [Coding Instructions](Instructions/Code.md)
-- [Unit Testing Instructions](Instructions/UnitTest.md)
+- [Architecture Overview](Wiki/Architecture.md)
+- [Architectural Rationale](Wiki/Rationale.md)
+- [Coding Guidelines](Wiki/Code.md)
+- [General Principles](Wiki/General.md)
+- [Testing Guide](Wiki/Test.md)
 
-## API Documentation
+## Feature Documentation
 
-For details on how to use the available API endpoints, see:
+For information on specific notification features, see:
 
-- [EmailController Usage](Notification/Controllers/EmailController.md)
+- [Welcome](Notification/Welcome/Readme.md)
 
 ## Getting Started
 

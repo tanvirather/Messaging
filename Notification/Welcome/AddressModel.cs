@@ -1,4 +1,4 @@
-﻿namespace Zuhid.Notification.Welcome;
+namespace Zuhid.Notification.Welcome;
 
 public class AddressModel
 {

@@ -1,4 +1,4 @@
-﻿using Moq;
+using Moq;
 using Zuhid.Notification.Controllers;
 using Zuhid.Notification.Shared;
 using Zuhid.Notification.Welcome;

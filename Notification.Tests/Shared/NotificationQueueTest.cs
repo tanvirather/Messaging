@@ -1,4 +1,3 @@
-﻿using System.Threading;
 using Zuhid.Notification.Shared;
 
 namespace Zuhid.Notification.Tests.Shared;

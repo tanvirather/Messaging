@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Zuhid.Notification.Welcome;
 using Zuhid.Notification.Shared;
+using Zuhid.Notification.Welcome;
 
 namespace Zuhid.Notification.Controllers;
 

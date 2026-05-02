@@ -1,5 +1,3 @@
-using Zuhid.Notification.Welcome;
-
 namespace Zuhid.Notification.Shared;
 
 public interface IConsumer<T> where T : IMessage

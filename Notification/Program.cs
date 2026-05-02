@@ -1,6 +1,6 @@
-using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
+using System.Reflection;
 using Zuhid.Notification.Shared;
 
 namespace Zuhid.Notification;

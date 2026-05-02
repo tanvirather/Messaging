@@ -1,4 +1,4 @@
-﻿using Zuhid.Notification.Shared;
+using Zuhid.Notification.Shared;
 
 namespace Zuhid.Notification.Welcome;
 
@@ -12,7 +12,8 @@ public class WelcomeConsumer(
     {
         var welcome = await repository.Get(message.CustomerId);
         validator.Validate(message, welcome);
-        var (subject, body) = await mapper.Map(welcome!);
-        await emailService.SendEmailAsync(subject, body, "test@customer.com");
+        var mailMessage = await mapper.Map(welcome!);
+        mailMessage.To.Add("test@customer.com");
+        await emailService.SendEmailAsync(mailMessage);
     }
 }

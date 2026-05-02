@@ -1,9 +1,10 @@
-﻿using Moq;
-using System.Net.Mail;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Moq;
+using System.Net.Mail;
+using Zuhid.Notification.Shared;
 
-namespace Zuhid.Notification.Shared.Tests;
+namespace Zuhid.Notification.Tests.Shared;
 
 public class EmailServiceRetryTests
 {
@@ -43,8 +44,16 @@ public class EmailServiceRetryTests
         var service = new EmailService(_appSetting, mockSmtpClient.Object, _mockLogger.Object);
 
         // Act & Assert
+        var mailMessage = new MailMessage
+        {
+            Subject = "Subject",
+            Body = "Body",
+            IsBodyHtml = true
+        };
+        mailMessage.To.Add("to@example.com");
+
         await Assert.ThrowsAsync<SmtpException>(() =>
-            service.SendEmailAsync("Subject", "Body", "to@example.com"));
+            service.SendEmailAsync(mailMessage));
 
         mockSmtpClient.Verify(x => x.SendMailAsync(It.IsAny<MailMessage>()), Times.Exactly(3));
     }

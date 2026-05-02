@@ -26,11 +26,17 @@ update_database(){
   dotnet ef database update --project $project --startup-project $startup_project # update database
 }
 
+dotnet_format() {
+  dotnet format --report Tmp/test.json
+}
+
 run_test() {
   project=$1
   rm -rf $project/TestResults
   dotnet test $project --settings $project/coverlet.runsettings --collect:"XPlat Code Coverage"
   dotnet reportgenerator -reports:"$project/TestResults/*/coverage.cobertura.xml" -targetdir:"$project/TestResults/CoverageReport" -reporttypes:Html
+  # start chrome "$(pwd -W)/$project/TestResults/CoverageReport/index.html"
+  # start msedge "$(pwd -W)/$project/TestResults/CoverageReport/index.html"
   # google-chrome $project/TestResults/CoverageReport/index.html &
   # /opt/microsoft/msedge/msedge $project/TestResults/CoverageReport/index.html &
 }
@@ -40,4 +46,5 @@ clear
 
 # solution_initilize "Notification"
 # update_database "Notification" "Notification"
+# dotnet_format
 run_test "Notification.Tests"

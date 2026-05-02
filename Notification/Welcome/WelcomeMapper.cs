@@ -1,10 +1,11 @@
-﻿using Zuhid.Notification.Shared;
+using System.Net.Mail;
+using Zuhid.Notification.Shared;
 
 namespace Zuhid.Notification.Welcome;
 
 public class WelcomeMapper() : BaseMapper("Welcome")
 {
-    public virtual async Task<(string Subject, string Body)> Map(WelcomeModel welcome)
+    public virtual async Task<MailMessage> Map(WelcomeModel welcome)
     {
         var subject = "Welcome to Our Platform!";
         var customer = welcome.Customer!;
@@ -19,6 +20,11 @@ public class WelcomeMapper() : BaseMapper("Welcome")
             .Replace("{{state}}", address.State)
             .Replace("{{zipCode}}", address.ZipCode)
             .Replace("{{country}}", address.Country);
-        return (subject, await CreateHtmlAsync(body));
+        return new MailMessage
+        {
+            Subject = subject,
+            Body = await CreateHtmlAsync(body),
+            IsBodyHtml = true
+        };
     }
 }

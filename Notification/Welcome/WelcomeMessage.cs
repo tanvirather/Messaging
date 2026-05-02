@@ -1,4 +1,4 @@
-﻿using Zuhid.Notification.Shared;
+using Zuhid.Notification.Shared;
 namespace Zuhid.Notification.Welcome;
 
 public class WelcomeMessage : IMessage

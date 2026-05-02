@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Zuhid.Notification.Entities;
 using Zuhid.Base;
+using Zuhid.Notification.Entities;
 
 namespace Zuhid.Notification.Shared;
 

@@ -1,5 +1,4 @@
 using System.Text.Json;
-using Zuhid.Notification.Welcome;
 
 namespace Zuhid.Notification.Shared;
 
@@ -41,7 +40,10 @@ public class NotificationBackgroundService(
             var concreteConsumerType = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
                 .FirstOrDefault(p => consumerType.IsAssignableFrom(p) && !p.IsInterface && !p.IsAbstract);
-            if (concreteConsumerType != null) consumer = serviceProvider.GetRequiredService(concreteConsumerType);
+            if (concreteConsumerType != null)
+            {
+                consumer = serviceProvider.GetRequiredService(concreteConsumerType);
+            }
         }
         if (consumer == null)
         {

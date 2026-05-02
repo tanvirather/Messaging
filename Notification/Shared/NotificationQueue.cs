@@ -1,5 +1,4 @@
-﻿using System.Threading.Channels;
-using Zuhid.Notification.Welcome;
+using System.Threading.Channels;
 
 namespace Zuhid.Notification.Shared;
 

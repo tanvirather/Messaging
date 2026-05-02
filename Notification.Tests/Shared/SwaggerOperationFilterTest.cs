@@ -1,7 +1,7 @@
-﻿using Microsoft.OpenApi;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Zuhid.Notification.Shared;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 namespace Zuhid.Notification.Tests.Shared;
 

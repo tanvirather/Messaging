@@ -12,9 +12,9 @@ The notification system is built around a "Consumer" pattern. Each notification 
 2.  **Consumer (`IConsumer<T>`)**: The orchestrator. It receives the message, coordinates with other components, and ultimately calls the `EmailService`.
 3.  **Repository**: Responsible for fetching the full data required for the notification from the database, usually returning a specific **Model**.
 4.  **Model**: A DTO representing the data needed to populate the notification template.
-5.  **Validator**: Checks if the notification should be sent based on business rules or data availability.
-6.  **Mapper (`BaseMapper`)**: Handles the transformation of the **Model** into the final notification content (Subject and Body) by reading an HTML template and replacing placeholders.
-7.  **EmailService**: A shared service responsible for the actual delivery of the email.
+5.  **Validator**: Checks if the notification should be sent based on business rules or data availability. It throws a `ValidatorException` if validation fails.
+6.  **Mapper (`BaseMapper`)**: Handles the transformation of the **Model** into a `MailMessage` by reading an HTML template and replacing placeholders.
+7.  **EmailService**: A shared service responsible for the actual delivery of emails and text messages (via email gateways).
 
 ## Sequence Diagram
 
@@ -32,19 +32,16 @@ sequenceDiagram
     Q->>C: ConsumeAsync(Message)
     C->>R: Get(Id)
     R-->>C: Return Model
-    C->>V: IsValid(Message, Model)
-    V-->>C: True / False
-    
-    alt Is Valid
-        C->>M: Map(Model)
-        M->>M: Read HTML Template
-        M->>M: Replace placeholders
-        M-->>C: Return (Subject, Body)
-        C->>E: SendEmailAsync(Subject, Body, Recipient)
-        E-->>C: Success
-    else Is Not Valid
-        C->>C: Log Warning / Skip
-    end
+    C->>V: Validate(Message, Model)
+    Note over V: Throws Exception if invalid
+
+    C->>M: Map(Model)
+    M->>M: Read HTML Template
+    M->>M: Replace placeholders
+    M-->>C: Return MailMessage
+    C->>C: Set Recipient
+    C->>E: SendEmailAsync(MailMessage)
+    E-->>C: Success
 ```
 
 ## Component Relationships
@@ -61,8 +58,8 @@ classDiagram
         +ConsumeAsync(message, token)
     }
     class BaseMapper {
-        +ReadTemplate(name)
-        +CreateHtmlAsync(body)
+        #ReadTemplate(path)
+        #CreateHtmlAsync(body, style)
     }
 
     class FeatureMessage {
@@ -80,10 +77,14 @@ classDiagram
         +Get(id) FeatureModel
     }
     class FeatureMapper {
-        +Map(model) (Subject, Body)
+        +Map(model) MailMessage
     }
     class FeatureValidator {
-        +IsValid(message, model) bool
+        +Validate(message, model)
+    }
+    class EmailService {
+        +SendEmailAsync(mailMessage)
+        +SendTextAsync(phone, body)
     }
 
     IMessage <|.. FeatureMessage
@@ -102,5 +103,7 @@ classDiagram
 
 - **Separation of Concerns**: Each class has a single responsibility.
 - **Testability**: Components are designed to be unit-tested individually (see `test.md`).
-- **Templates**: HTML templates are stored alongside the feature code and processed by the `Mapper`.
+- **Templates**: HTML templates are stored in feature-specific directories and processed by the `Mapper`.
 - **Async/Await**: All I/O operations (database access, template reading, email sending) are asynchronous.
+- **Resiliency**: The `EmailService` implements retry logic with exponential backoff.
+- **Shared Assets**: `BaseMapper` uses shared CSS (`BaseComposer.css`) and HTML layout (`BaseComposer.html`) to ensure consistent branding.

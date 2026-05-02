@@ -5,6 +5,5 @@
 bin
 Migrations
 obj
-output
 TestResults
-tmp
+Tmp

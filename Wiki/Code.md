@@ -17,7 +17,8 @@ namespace Zuhid.Notification.NewFeature;
 
 public class NewFeatureMessage : IMessage
 {
-    public Guid Id { get; set; }
+    [RequiredGuid]
+    public Guid CustomerId { get; set; }
 }
 ```
 
@@ -28,6 +29,7 @@ namespace Zuhid.Notification.NewFeature;
 
 public class NewFeatureModel
 {
+    public Guid CustomerId { get; set; }
     public string Name { get; set; } = string.Empty;
     // Add other properties needed for the template
 }
@@ -43,11 +45,12 @@ namespace Zuhid.Notification.NewFeature;
 
 public class NewFeatureRepository(NotificationContext context)
 {
-    public virtual async Task<NewFeatureModel?> Get(Guid id) => await context.SomeTable
-        .Where(x => x.Id == id.ToString())
+    public virtual async Task<NewFeatureModel?> Get(Guid customerId) => await context.Customer
+        .Where(x => x.Id == customerId)
         .Select(x => new NewFeatureModel
         {
-            Name = x.Name ?? string.Empty,
+            CustomerId = x.Id,
+            Name = x.FirstName ?? string.Empty,
         })
         .FirstOrDefaultAsync();
 }
@@ -56,19 +59,25 @@ public class NewFeatureRepository(NotificationContext context)
 ### 4. Mapper (`NewFeatureMapper.cs`)
 Inherit from `BaseMapper` to handle template reading and string replacement.
 ```csharp
+using System.Net.Mail;
 using Zuhid.Notification.Shared;
 
 namespace Zuhid.Notification.NewFeature;
 
 public class NewFeatureMapper() : BaseMapper("NewFeature")
 {
-    public virtual async Task<(string Subject, string Body)> Map(NewFeatureModel model)
+    public virtual async Task<MailMessage> Map(NewFeatureModel model)
     {
         var subject = "Subject for New Feature";
         var body = (await ReadTemplate("NewFeature.html"))
             .Replace("{{name}}", model.Name);
-        
-        return (subject, await CreateHtmlAsync(body));
+
+        return new MailMessage
+        {
+            Subject = subject,
+            Body = await CreateHtmlAsync(body),
+            IsBodyHtml = true
+        };
     }
 }
 ```
@@ -76,18 +85,18 @@ public class NewFeatureMapper() : BaseMapper("NewFeature")
 ### 5. Validator (`NewFeatureValidator.cs`)
 Implement validation logic before sending the notification.
 ```csharp
+using Zuhid.Notification.Shared;
+
 namespace Zuhid.Notification.NewFeature;
 
-public class NewFeatureValidator(ILogger<NewFeatureValidator> logger)
+public class NewFeatureValidator
 {
-    public virtual bool IsValid(NewFeatureMessage message, NewFeatureModel? model)
+    public virtual void Validate(NewFeatureMessage message, NewFeatureModel? model)
     {
         if (model == null)
         {
-            logger.LogWarning("Data not found for {Id}.", message.Id);
-            return false;
+            throw new ValidatorException([$"Data not found for {message.CustomerId}."]);
         }
-        return true;
     }
 }
 ```
@@ -95,7 +104,6 @@ public class NewFeatureValidator(ILogger<NewFeatureValidator> logger)
 ### 6. Consumer (`NewFeatureConsumer.cs`)
 Orchestrate the process: retrieve data, validate, map, and send.
 ```csharp
-using Zuhid.Notification.NewFeature;
 using Zuhid.Notification.Shared;
 
 namespace Zuhid.Notification.NewFeature;
@@ -108,12 +116,11 @@ public class NewFeatureConsumer(
 {
     public async Task ConsumeAsync(NewFeatureMessage message, CancellationToken stoppingToken)
     {
-        var data = await repository.Get(message.Id);
-        if (validator.IsValid(message, data))
-        {
-            var (subject, body) = await mapper.Map(data!);
-            await emailService.SendEmailAsync(subject, body, "recipient@example.com");
-        }
+        var data = await repository.Get(message.CustomerId);
+        validator.Validate(message, data);
+        var mailMessage = await mapper.Map(data!);
+        mailMessage.To.Add("recipient@example.com");
+        await emailService.SendEmailAsync(mailMessage);
     }
 }
 ```
@@ -125,7 +132,7 @@ Create an HTML file in the feature folder. Use `{{property_name}}` for placehold
 Add a new `HttpPost` endpoint to the `EmailController` (located in `Notification/Controllers/`) to queue the message.
 ```csharp
 [HttpPost("NewFeature")]
-public virtual async Task<IActionResult> NewFeature([FromBody] NewFeatureMessage message) => await QueueMessage(message);
+public async Task NewFeature([FromBody] NewFeatureMessage message) => await emailQueue.QueueMessage(message);
 ```
 
 ## Testing
